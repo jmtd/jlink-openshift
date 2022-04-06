@@ -18,6 +18,7 @@ source "${JBOSS_CONTAINER_JAVA_S2I_MODULE}/maven-s2i-overrides"
 maven_s2i_build
 
 # Run additional build after steps
+shopt -s globstar
 jarfile="$project/deployments/quarkus-run.jar"
 libdir="$project/deployments/lib"
 JAVA_HOME="/lib/jvm/java-11-openjdk"
