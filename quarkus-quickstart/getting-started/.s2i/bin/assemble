@@ -6,9 +6,8 @@
 /usr/libexec/s2i/assemble
 
 # Run additional build after steps
-project="quarkus-quickstart/getting-started"
-jarfile="$project/target/quarkus-app/quarkus-run.jar"
-libdir="$project/target/quarkus-app/lib"
+jarfile="$project/deployments/quarkus-app/quarkus-run.jar"
+libdir="$project/deployments/quarkus-app/lib"
 JAVA_HOME="/lib/jvm/java-11-openjdk"
 
 test -f "$jarfile"
@@ -47,3 +46,4 @@ $JAVA_HOME/bin/jlink --output quarkus-jre \
 	-G --no-header-files --no-man-pages
 
 rm *.txt
+cp -r quarkus-jre /deployments
