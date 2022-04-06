@@ -53,14 +53,14 @@ grep -Fx -f stripped-deps.txt modules.txt | tr '\n' ',' | tr -d "[:space:]" > mo
 echo "jdk.zipfs" >> module-deps.txt
 
 echo "Linking jre"
-$JAVA_HOME/bin/jlink --output java-11-openjdk \
+$JAVA_HOME/bin/jlink --output java-11-openjdk-11.0.13.0.8-4.el8_5.x86_64 \
        	--add-modules $(cat module-deps.txt) \
 	-G --no-header-files --no-man-pages
 
 rm *.txt
 echo "Repacking jre"
 INSTALL_BASE="/lib/jvm/java-11-openjdk"
-JDK_IMAGE="java-11-openjdk"
+JDK_IMAGE="java-11-openjdk-11.0.13.0.8-4.el8_5.x86_64"
 echo -n "Replacing shared libraries from JDK image '$JDK_IMAGE' with shared libraries from '$INSTALL_BASE'... "
 
 pushd $JDK_IMAGE > /dev/null
@@ -71,4 +71,4 @@ pushd $JDK_IMAGE > /dev/null
 popd > /dev/null
 echo "Done."
 echo "Replacing JDK"
-mv java-11-openjdk /lib/jvm
+mv java-11-openjdk-11.0.13.0.8-4.el8_5.x86_64 /lib/jvm
