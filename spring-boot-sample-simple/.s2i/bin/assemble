@@ -29,7 +29,7 @@ test -d "$libdir"
 
 # Create a temporary directory for a module path
 mkdir dependencies
-cp $libdir/**/*.jar dependencies
+cp /deployments/lib/**/*.jar dependencies
 # Calculate dependencies
 $JAVA_HOME/bin/jdeps --module-path dependencies --ignore-missing-deps --multi-release 11 -R -s \
     "$jarfile" \
