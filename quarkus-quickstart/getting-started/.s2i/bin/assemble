@@ -60,7 +60,7 @@ $JAVA_HOME/bin/jlink --output java-11-openjdk-11.0.13.0.8-4.el8_5.x86_64 \
 rm *.txt
 echo "Repacking jre"
 INSTALL_BASE="/lib/jvm/java-11-openjdk"
-JDK_IMAGE="java-11-openjdk-11.0.13.0.8-4.el8_5.x86_64"
+JDK_IMAGE="quarkus-jre"
 echo -n "Replacing shared libraries from JDK image '$JDK_IMAGE' with shared libraries from '$INSTALL_BASE'... "
 
 pushd $JDK_IMAGE > /dev/null
@@ -70,5 +70,5 @@ pushd $JDK_IMAGE > /dev/null
   done
 popd > /dev/null
 echo "Done."
-echo "Replacing JDK"
-mv java-11-openjdk-11.0.13.0.8-4.el8_5.x86_64 /lib/jvm
+cp -r quarkus-jre /deployments
+rm -rf quarkus-jre
