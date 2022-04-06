@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-depsfile="stripped-deps2.txt"
+depsfile="module-deps.txt"
 
 test -f $depsfile
 
