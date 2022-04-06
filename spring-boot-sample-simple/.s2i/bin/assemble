@@ -18,10 +18,12 @@ source "${JBOSS_CONTAINER_JAVA_S2I_MODULE}/maven-s2i-overrides"
 maven_s2i_build
 
 # Run additional build after steps
+echo "Setting environment variables"
 jarfile="/deployments/spring-boot-sample-simple-1.5.0.BUILD-SNAPSHOT.jar"
 libdir="/deployments/lib"
 JAVA_HOME="/lib/jvm/java-11-openjdk"
 
+echo "Checking that jarfile and libdir exist"
 test -f "$jarfile"
 test -d "$libdir"
 
