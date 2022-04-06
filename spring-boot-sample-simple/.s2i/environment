@@ -1,4 +1,4 @@
-MAVEN_S2I_ARTIFACT_DIRS=target/quarkus-app
+MAVEN_S2I_ARTIFACT_DIRS=target
 S2I_SOURCE_DEPLOYMENTS_FILTER=lib spring-boot-sample-simple-1.5.0.BUILD-SNAPSHOT.jar
 AB_JOLOKIA_OFF=true
 JAVA_APP_JAR=/deployments/spring-boot-sample-simple-1.5.0.BUILD-SNAPSHOT.jar
