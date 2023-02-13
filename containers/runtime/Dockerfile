@@ -3,6 +3,8 @@
 # repository root):
 #   podman build -t jlink-runtime containers/runtime/Dockerfile
 
+# CAVEAT: the version of this container MUST align GLIBC versions with the micro
+# below.
 FROM registry.access.redhat.com/ubi8/ubi-minimal:latest as builder
 
 RUN microdnf install \
@@ -16,11 +18,17 @@ RUN microdnf install \
     --setopt=reposdir=/etc/yum.repos.d \
     --setopt=varsdir=/tmp/varsdir \
     zlib \
-    libstdc++
+    libstdc++ \
+    glibc \
+    rpm
 
 # dependencies so far:
 # /usr/bin/java: zlib
 # libjvm.so:     libstdc++
+# libc6: the micro container already has libc6, but we need to ensure that
+# the version aligns exactly with the builder. At the time of writing,
+# ubi-micro:latest is a minor version behind ubi-minimal:latest.
+# rpm: debugging
 
 FROM registry.access.redhat.com/ubi8/ubi-micro:latest
 
