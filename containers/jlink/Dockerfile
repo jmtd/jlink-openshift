@@ -9,6 +9,7 @@ RUN microdnf --setopt=install_weak_deps=0 --setopt=tsflags=nodocs install -y \
     java-17-openjdk-headless java-17-openjdk-devel java-17-openjdk-jmods
 
 ENV     JAVA_HOME=/usr/lib/jvm/jre
-WORKDIR /tmp/run
-COPY    run-jlink.sh /tmp/run
+WORKDIR /tmp
+COPY    run-jlink.sh /tmp
+USER    1000
 CMD     ./run-jlink.sh
