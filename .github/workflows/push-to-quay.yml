@@ -1,0 +1,32 @@
+name: Push to Quay
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  push-to-quay:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Push to quay.io
+      # You may pin to the exact commit or the version.
+      # uses: redhat-actions/push-to-registry@9986a6552bc4571882a4a67e016b17361412b4df
+      uses: redhat-actions/push-to-registry@v2.7
+      with:
+        # Name of the image/manifest to push (e.g. username/imagename or imagename)
+        image: jlink-test
+        # 'The tag or tags of the image/manifest to push.
+        tags: latest
+        # Hostname and optional namespace to push the image to (eg. quay.io/username or quay.io)
+        registry: quay.io/jmatsuok/jlink-tests
+        # Username to use as credential to authenticate to the registry
+        # username: # optional
+        # Password to use as credential to authenticate to the registry
+        # password: # optional
+        # Verify TLS certificates when contacting the registry
+        # tls-verify: # optional, default is true
+        # After copying the image, write the digest of the resulting image to the file.
+        # digestfile: # optional
+        # Extra args to be passed to podman push.
+        # extra-args: # optional
