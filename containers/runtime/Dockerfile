@@ -1,4 +1,4 @@
-# Experimental runtime image builder. Requires 'spring-jre' and 'target'
+# Experimental runtime image builder. Requires 'jre' and 'target'
 # in current working directory when executing the build, e.g. (from the
 # repository root):
 #   podman build -t jlink-runtime containers/runtime/Dockerfile
@@ -34,10 +34,16 @@ FROM registry.access.redhat.com/ubi8/ubi-micro:latest
 
 COPY --from=builder /tmp/micro/ /
 
-COPY spring-jre /deployments/spring-jre
-ENV  JAVA_HOME  /deployments/spring-jre
+ARG  jre=jre
+ARG  jar=target/spring-boot-sample-simple-1.5.0.BUILD-SNAPSHOT.jar
+ARG  lib=target/lib
 
-COPY /target/spring-boot-sample-simple-1.5.0.BUILD-SNAPSHOT.jar /deployments
-COPY /target/lib /deployments/lib
+COPY jre        /deployments/jre
+ENV  JAVA_HOME  /deployments/jre
 
-CMD  $JAVA_HOME/bin/java -cp $(cat /deployments/lib/classpath) /deployments/spring-boot-sample-simple-1.5.0.BUILD-SNAPSHOT.jar
+COPY /${jar}    /deployments/app.jar
+COPY /${lib}    /deployments/lib
+COPY run.sh     /deployments
+
+WORKDIR /deployments
+CMD     ./run.sh
