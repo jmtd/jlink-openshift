@@ -38,7 +38,7 @@ ARG  jre=jre
 ARG  jar=target/spring-boot-sample-simple-1.5.0.BUILD-SNAPSHOT.jar
 ARG  lib=target/lib
 
-COPY jre        /deployments/jre
+COPY /${jre}    /deployments/jre
 ENV  JAVA_HOME  /deployments/jre
 
 COPY /${jar}    /deployments/app.jar
