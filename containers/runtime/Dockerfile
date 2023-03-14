@@ -19,8 +19,7 @@ RUN microdnf install \
     --setopt=varsdir=/tmp/varsdir \
     zlib \
     libstdc++ \
-    glibc \
-    rpm
+    glibc
 
 # dependencies so far:
 # /usr/bin/java: zlib
@@ -28,7 +27,7 @@ RUN microdnf install \
 # libc6: the micro container already has libc6, but we need to ensure that
 # the version aligns exactly with the builder. At the time of writing,
 # ubi-micro:latest is a minor version behind ubi-minimal:latest.
-# rpm: debugging
+# rpm: debugging (this increases image size significantly)
 
 FROM registry.access.redhat.com/ubi8/ubi-micro:latest
 
