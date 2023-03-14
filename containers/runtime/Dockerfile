@@ -35,8 +35,8 @@ FROM registry.access.redhat.com/ubi8/ubi-micro:latest
 COPY --from=builder /tmp/micro/ /
 
 ARG  jre=jre
-ARG  jar=target/spring-boot-sample-simple-1.5.0.BUILD-SNAPSHOT.jar
-ARG  lib=target/lib
+ARG  jar=app.jar
+ARG  lib=lib
 
 COPY /${jre}    /deployments/jre
 ENV  JAVA_HOME  /deployments/jre
