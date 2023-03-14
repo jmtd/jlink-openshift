@@ -12,4 +12,5 @@ ENV     JAVA_HOME=/usr/lib/jvm/jre
 WORKDIR /tmp
 COPY    run-jlink.sh /tmp
 USER    1000
+RUN     mkdir -p /tmp/run/lib
 CMD     ./run-jlink.sh
