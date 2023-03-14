@@ -20,8 +20,17 @@ die()
 test -f "$jarfile" || die "cannot find jarfile $jarfile"
 test -d "$libdir"  || die "cannot find libdir $libdir"
 
+# gather dependencies in one place for a module path
+mkdir -p /tmp/run/deps
+pushd /tmp/run/deps
+for jar in "$libdir"/**/*.jar ; do
+  test -e "$jar" || ln -s "$jar"
+done
+popd
+
 echo "Generating deps"
 $JAVA_HOME/bin/jdeps --multi-release 11 -R -s \
+    --module-path /tmp/run/deps \
     "$jarfile" \
     "$libdir"/**/*.jar \
 > deps.txt
@@ -53,4 +62,4 @@ echo "jdk.zipfs" >> module-deps.txt
 echo "Linking jre"
 $JAVA_HOME/bin/jlink --output "$outputjre/jre"   \
        	--add-modules $(cat module-deps.txt) \
-	-G --no-header-files --no-man-pages
+	--strip-debug --no-header-files --no-man-pages
