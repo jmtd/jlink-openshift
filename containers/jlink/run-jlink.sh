@@ -7,7 +7,7 @@ shopt -s globstar
 # The expectation is the container invocation will volume-mount in
 # the appropriate contents.
 #
-jarfile=/tmp/run/app.jar
+jarfile=${jarfile-/tmp/run/app.jar}
 libdir=/tmp/run/lib
 outputjre=/tmp/run/out
 
