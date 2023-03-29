@@ -2,10 +2,9 @@
 set -euo pipefail
 shopt -s globstar
 
-project="quarkus-quickstart/getting-started"
-jarfile="$project/target/quarkus-app/quarkus-run.jar"
-libdir="$project/target/quarkus-app/lib"
-JAVA_HOME="/lib/jvm/java-11-openjdk"
+project="${project-quarkus-quickstart/getting-started}"
+jarfile="${jarfile-$project/target/quarkus-app/quarkus-run.jar}"
+libdir="${libdir-$project/target/quarkus-app/lib}"
 
 test -f "$jarfile"
 test -d "$libdir"
