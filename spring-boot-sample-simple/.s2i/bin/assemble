@@ -71,7 +71,7 @@ echo -n "Replacing shared libraries from JDK image '$JDK_IMAGE' with shared libr
 #    rm $l
 #    cp $INSTALL_BASE/$l $l
 #  done
-popd > /dev/null
+# popd > /dev/null
 echo "Done."
 # cp -r spring-boot-jre /deployments
 # rm -rf spring-boot-jre
