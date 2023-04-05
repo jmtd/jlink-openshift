@@ -1,0 +1,56 @@
+name: Push to Quay
+
+on:
+  push:
+    branches:
+      - main
+env:
+  S2I_URI: https://github.com/openshift/source-to-image/releases/download/v1.3.1/source-to-image-v1.3.1-a5a77147-linux-amd64.tar.gz
+  IMAGE_NAME: jlink-test-image
+  TAGS: v1 ${{ github.sha }}
+  
+jobs:
+  build-image:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        repository: ${{ inputs.checkout-repo }}
+        ref: ${{ inputs.checkout-ref }}
+        submodules: true
+        fetch-depth: 0
+    - uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+        distribution: 'adopt'
+    - run: git submodule init
+    - run: git submodule update --remote
+    - name: install s2i binary
+      run: |
+          echo ===== Installing s2i from ${{ env.S2I_URL }} =====
+          mkdir /tmp/s2i/ && cd /tmp/s2i/
+          wget ${{ env.S2I_URI }}
+          tar xvf source-to-image*.gz
+          sudo mv s2i /usr/bin
+          which s2i
+          s2i version
+    - name: Setup and Build Spring
+      id: build_image_spring
+      uses: redhat-actions/s2i-build@v2
+      with:
+        # TODO: Set up job for each quickstart we're building
+        # TODO: Does this respect the .s2i in each one?
+        path_context: 'spring-boot-sample-simple'
+        # TODO: Need Jmods image
+        builder_image: 'registry.access.redhat.com/openjdk/openjdk-11-rhel7'
+        image: ${{ env.IMAGE_NAME }}
+        tags: ${{ env.TAGS }}
+    # TODO: This works but need to upload secrets.
+    # - name: Push To Quay Action
+    #  uses: redhat-actions/push-to-registry@v2
+    #  with:
+    #    image: ${{ steps.build_image_spring.outputs.image }}
+    #    tags: ${{ steps.build_image_spring.outputs.tags }}
+    #    registry: quay.io/jmatsuok/jlink-tests
+    #    username: ${{ secrets.QUAY_USERNAME }}
+    #    password: ${{ secrets.QUAY_PASSWORD }}

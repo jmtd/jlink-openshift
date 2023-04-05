@@ -55,10 +55,10 @@ cat java-modules.txt | sed "s/\\@.*//" > modules.txt
 grep -Fx -f stripped-deps.txt modules.txt | tr '\n' ',' | tr -d "[:space:]" > module-deps.txt
 echo "jdk.zipfs" >> module-deps.txt
 
-echo "Linking jre"
-$JAVA_HOME/bin/jlink --output spring-boot-jre \
-       	--add-modules $(cat module-deps.txt) \
-	-G --no-header-files --no-man-pages
+# echo "Linking jre"
+# $JAVA_HOME/bin/jlink --output spring-boot-jre \
+#       	--add-modules $(cat module-deps.txt) \
+#	-G --no-header-files --no-man-pages
 
 rm *.txt
 echo "Repacking jre"
@@ -66,12 +66,12 @@ INSTALL_BASE="/lib/jvm/java-11-openjdk"
 JDK_IMAGE="spring-boot-jre"
 echo -n "Replacing shared libraries from JDK image '$JDK_IMAGE' with shared libraries from '$INSTALL_BASE'... "
 
-pushd $JDK_IMAGE > /dev/null
-  for l in $(find -name \*.so); do
-    rm $l
-    cp $INSTALL_BASE/$l $l
-  done
-popd > /dev/null
+# pushd $JDK_IMAGE > /dev/null
+#  for l in $(find -name \*.so); do
+#    rm $l
+#    cp $INSTALL_BASE/$l $l
+#  done
+# popd > /dev/null
 echo "Done."
-cp -r spring-boot-jre /deployments
-rm -rf spring-boot-jre
+# cp -r spring-boot-jre /deployments
+# rm -rf spring-boot-jre
