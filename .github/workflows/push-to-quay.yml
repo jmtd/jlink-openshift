@@ -21,9 +21,6 @@ jobs:
         distribution: 'adopt'
     - run: git submodule init
     - run: git submodule update --remote
-    - uses: actions/upload-artifact@v3
-      with:
-        name: jlink-test
     - name: install s2i binary
       run: |
           echo ===== Installing s2i from ${{ env.S2I_URL }} =====
@@ -33,7 +30,27 @@ jobs:
           sudo mv s2i /usr/bin
           which s2i
           s2i version
-        
+    - name: Setup and Build Spring
+      id: build_image_spring
+      uses: redhat-actions/s2i-build@v2
+      with:
+        # TODO: Set up job for each quickstart we're building
+        # TODO: Does this respect the .s2i in each one?
+        path_context: 'spring-boot-sample-simple'
+        # TODO: Need Jmods image
+        builder_image: 'registry.access.redhat.com/ubi8/ubi-minimal:latest'
+        image: ${{ env.IMAGE_NAME }}
+        tags: ${{ env.TAGS }}
+    - name: Push To Quay Action
+      uses: redhat-actions/push-to-registry@v2
+      with:
+        image: ${{ steps.build_image_spring.outputs.image }}
+        tags: ${{ steps.build_image_spring.outputs.tags }}
+        registry: quay.io/jmatsuok/jlink-tests
+        username: ${{ secrets.QUAY_USERNAME }}
+        password: ${{ secrets.QUAY_PASSWORD }}
+  
+      
   push-to-quay:
     runs-on: ubuntu-latest
     steps:
