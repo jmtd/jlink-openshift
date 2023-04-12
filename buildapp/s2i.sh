@@ -12,6 +12,7 @@ WORKDIR=${WORKDIR:=$PWD/work}
 
 s2i build --pull-policy if-not-present --context-dir=$CONTEXTDIR -r=${rev} \
     -e S2I_DELETE_SOURCE=false \
+    -e QUARKUS_PACKAGE_TYPE=uber-jar \
     -v $WORKDIR:/tmp/src \
     $APPSRC \
     $BASEIMG \
