@@ -3,11 +3,17 @@
 Proof-of-Concept/experiments with integrating Java modules (`jlink`,`jdep`)
 and OpenShift.
 
-## Prerequisites
+## Containers
+
+ * [App Builder](buildapp/README.md)
+
+## Scripts
+
+### Prerequisites
 
 Most of the scripts require `$JAVA_HOME` to be defined.
 
-## Script details
+### Script details
 
  * `mkdeps.sh`:          springboot demo   → jdeps     → deps.txt
  * `mkquarkusdeps.sh`:   quarkus demo      → jdeps     → deps.txt
