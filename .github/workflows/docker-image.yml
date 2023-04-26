@@ -14,5 +14,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: Build the quickstarts
+    - run: cd spring-boot-sample-simple
+    - run: mvn -B -U clean package
+    - run: cd ..
+    - uses: actions/checkout@v3
     - name: Build the Docker image
       run: docker build . --file runtime/Dockerfile --tag my-image-name:$(date +%s)
+      
