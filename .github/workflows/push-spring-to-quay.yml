@@ -1,4 +1,4 @@
-name: Push to Quay
+name: Build and push Spring
 
 on:
   push:
@@ -46,11 +46,11 @@ jobs:
         image: ${{ env.IMAGE_NAME }}
         tags: ${{ env.TAGS }}
     # TODO: This works but need to upload secrets.
-    # - name: Push To Quay Action
-    #  uses: redhat-actions/push-to-registry@v2
-    #  with:
-    #    image: ${{ steps.build_image_spring.outputs.image }}
-    #    tags: ${{ steps.build_image_spring.outputs.tags }}
-    #    registry: quay.io/jmatsuok/jlink-tests
-    #    username: ${{ secrets.QUAY_USERNAME }}
-    #    password: ${{ secrets.QUAY_PASSWORD }}
+    - name: Push To Quay Action
+      uses: redhat-actions/push-to-registry@v2
+      with:
+        image: ${{ steps.build_image_spring.outputs.image }}
+        tags: ${{ steps.build_image_spring.outputs.tags }}
+        registry: quay.io/jmatsuok/jlink-tests
+        username: ${{ secrets.QUAY_USERNAME }}
+        password: ${{ secrets.QUAY_PASSWORD }}
