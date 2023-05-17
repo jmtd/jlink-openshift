@@ -7,3 +7,4 @@ and OpenShift.
 
  * [App Builder](buildapp/README.md)
  * [Jlink](jlink/README.md)
+ * [Runtime](runtime/README.md)
