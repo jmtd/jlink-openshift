@@ -1,4 +1,4 @@
-name: Push to Quay
+name: Build and push Spring
 
 on:
   push:
