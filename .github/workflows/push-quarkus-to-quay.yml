@@ -34,7 +34,7 @@ jobs:
           sudo mv s2i /usr/bin
           which s2i
           s2i version
-    - name: Setup and Build Spring
+    - name: Setup and Build Quarkus
       id: build_image_quarkus
       uses: redhat-actions/s2i-build@v2
       with:
