@@ -38,14 +38,11 @@ jobs:
       id: build_image_quarkus
       uses: redhat-actions/s2i-build@v2
       with:
-        # TODO: Set up job for each quickstart we're building
-        # TODO: Does this respect the .s2i in each one?
         path_context: 'quarkus-quickstart/getting-started'
         # TODO: Need Jmods image
         builder_image: 'registry.access.redhat.com/openjdk/openjdk-11-rhel7'
         image: ${{ env.IMAGE_NAME }}
         tags: ${{ env.TAGS }}
-    # TODO: This works but need to upload secrets.
     - name: Push To Quay Action
       uses: redhat-actions/push-to-registry@v2
       with:
