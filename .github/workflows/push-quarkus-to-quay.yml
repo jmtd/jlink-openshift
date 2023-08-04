@@ -24,7 +24,7 @@ jobs:
       with:
         path_context: 'quarkus-quickstart/getting-started'
         # TODO: Need Jmods image
-        builder_image: 'registry.access.redhat.com/openjdk/openjdk-11-rhel7'
+        builder_image: 'registry.access.redhat.com/ubi9/openjdk-17'
         image: ${{ env.IMAGE_NAME }}
         tags: ${{ env.TAGS }}
     - name: Push To Quay Action
