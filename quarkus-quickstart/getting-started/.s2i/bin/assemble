@@ -21,7 +21,6 @@ maven_s2i_build
 shopt -s globstar
 jarfile="$project/deployments/quarkus-run.jar"
 libdir="$project/deployments/lib"
-JAVA_HOME="/lib/jvm/java-11-openjdk"
 
 test -f "$jarfile"
 test -d "$libdir"
@@ -30,7 +29,7 @@ test -d "$libdir"
 mkdir dependencies
 cp $libdir/**/*.jar dependencies
 # Calculate dependencies
-$JAVA_HOME/bin/jdeps --module-path dependencies --ignore-missing-deps --multi-release 11 -R -s \
+$JAVA_HOME/bin/jdeps --module-path dependencies --ignore-missing-deps --multi-release 17 -R -s \
     "$jarfile" \
     "$libdir"/**/*.jar \
 > deps.txt
@@ -60,7 +59,7 @@ $JAVA_HOME/bin/jlink --output quarkus-jre \
 
 rm *.txt
 echo "Repacking jre"
-INSTALL_BASE="/lib/jvm/java-11-openjdk"
+INSTALL_BASE="$JAVA_HOME"
 JDK_IMAGE="quarkus-jre"
 echo -n "Replacing shared libraries from JDK image '$JDK_IMAGE' with shared libraries from '$INSTALL_BASE'... "
 
