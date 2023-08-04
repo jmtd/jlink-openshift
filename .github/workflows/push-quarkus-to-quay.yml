@@ -5,7 +5,6 @@ on:
     branches:
       - main
 env:
-  S2I_URI: https://github.com/openshift/source-to-image/releases/download/v1.3.1/source-to-image-v1.3.1-a5a77147-linux-amd64.tar.gz
   IMAGE_NAME: jlink-quarkus-test-image
   TAGS: v1 ${{ github.sha }}
   
@@ -25,15 +24,6 @@ jobs:
         distribution: 'adopt'
     - run: git submodule init
     - run: git submodule update --remote
-    - name: install s2i binary
-      run: |
-          echo ===== Installing s2i from ${{ env.S2I_URL }} =====
-          mkdir /tmp/s2i/ && cd /tmp/s2i/
-          wget ${{ env.S2I_URI }}
-          tar xvf source-to-image*.gz
-          sudo mv s2i /usr/bin
-          which s2i
-          s2i version
     - name: Setup and Build Quarkus
       id: build_image_quarkus
       uses: redhat-actions/s2i-build@v2
