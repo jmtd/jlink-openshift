@@ -22,8 +22,6 @@ jobs:
       with:
         java-version: '11'
         distribution: 'adopt'
-    - run: git submodule init
-    - run: git submodule update --remote
     - name: Setup and Build Quarkus
       id: build_image_quarkus
       uses: redhat-actions/s2i-build@v2
