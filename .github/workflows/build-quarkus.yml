@@ -22,7 +22,7 @@ jobs:
       uses: redhat-actions/s2i-build@v2
       with:
         path_context: 'quarkus-quickstart/getting-started'
-        # TODO: Need Jmods image
-        builder_image: 'registry.access.redhat.com/ubi9/openjdk-17'
+        # This is ubi9/openjdk-17 built from jdk-dev branch (+jmods)
+        builder_image: 'quay.io/jdowland/ubi9-openjdk-17:jdk-dev'
         image: ${{ env.IMAGE_NAME }}
         tags: ${{ env.TAGS }}
